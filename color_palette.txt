@@ -1,0 +1,15 @@
+🎨 Color Palette
+A green-teal-amber scheme keeps things fresh and energetic:
+
+Role	         Color	                     Usage
+Primary	    #4CAF50 (Green)	            App bars, FABs, buttons
+PrimaryVariant	#388E3C (Dark Green)	    Pressed states, headers
+Secondary	    #00ACC1 (Teal)	            Accents: icons, toggles, links
+Accent	        #FFB300 (Amber)	            Highlights: active tabs, badges
+Background	    #F5F5F5 (Light Gray)	    Scaffold/background
+Surface	    #FFFFFF (White)	            Cards, sheets, dialogs
+Error	        #E53935 (Red)	            Form validation, error messages
+OnPrimary	    #FFFFFF (White)	            Text/icons on primary surfaces
+OnSecondary	#FFFFFF (White)	            Text/icons on secondary surfaces
+OnBackground	#212121 (Almost Black)	    Main body text
+OnSurface	    #212121 (Almost Black)	    Cards & dialogs text
