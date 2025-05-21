@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health/screens/login_screen.dart';
+import 'package:health/screens/signup_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -179,6 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               onPressed: () {
                                 // Navigate to sign-up
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
@@ -204,6 +207,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               onPressed: () {
                                 // Navigate to login
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
