@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
+import 'package:health/screens/home_screen.dart';
+import 'package:health/screens/onboarding_screen.dart';
 
 void main() {
+  bool isAuthed = false;
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -19,7 +21,7 @@ void main() {
           onSurface: Color(0xFF212121),
         ),
       ),
-      home: SplashScreen(),
+      home: isAuthed ? HomeScreen() : OnboardingScreen(),
     ),
   );
 }

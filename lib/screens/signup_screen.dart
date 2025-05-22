@@ -58,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String? _validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your password';
+      return 'Please confirm your password';
     }
     if (value.length < 8) {
       return 'Password must be at least 8 characters';
@@ -140,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     child: const Text(
-                      'Verification Code',
+                      'Enter Code',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

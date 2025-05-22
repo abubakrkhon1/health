@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     child: const Text(
-                      'Verification Code',
+                      'Enter Code',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
             
                 CustomFormInput(
                   controller: _passCtl,
-                  hintText: 'Enter your email',
+                  hintText: 'Enter your password',
                   validator: _validatePassword,
                   obscureText: true,
                 ),
