@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: SizedBox(
           height: 120,
-          child: Text('Test Logo', style: TextStyle(fontSize: 80)),
+          child: Image.asset('assets/images/logo.png'),
         ), // your logo here
       ),
     );
