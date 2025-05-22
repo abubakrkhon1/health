@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:health/components/CustomFormInput.dart';
+import 'package:health/screens/home_screen.dart';
 import 'package:health/screens/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -72,6 +73,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print('Password: ${_passCtl.text}');
       print('Name: ${_nameCtl.text}');
       print('DOB: ${_dobCtl.text}');
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false,
+      );
     }
   }
 

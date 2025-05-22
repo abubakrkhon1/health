@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health/components/CustomFormInput.dart';
+import 'package:health/screens/home_screen.dart';
 import 'package:health/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,6 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       // Form is valid, submit the data
       // ...
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false,
+      );
     }
   }
 
