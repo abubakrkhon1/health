@@ -20,6 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _dobCtl = TextEditingController();
   final _confirmPassCtl = TextEditingController();
 
+  bool loading = false;
+
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your name';
@@ -67,18 +69,86 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return null;
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      await Future.delayed(const Duration(seconds: 2));
+
       print('Email: ${_emailCtl.text}');
       print('Password: ${_passCtl.text}');
       print('Name: ${_nameCtl.text}');
       print('DOB: ${_dobCtl.text}');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false,
-      );
+
+      showSuccessModal(context);
+
+      setState(() {
+        loading = false;
+      });
     }
+  }
+
+  void showSuccessModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder:
+          (context) => Padding(
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.verified, // or use a custom image/icon
+                  color: Colors.green,
+                  size: 64,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Verification code sent!',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Enter verification code sent to your email to continue',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+                TextField(),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close modal
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (route) => false,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Verification Code',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+    );
   }
 
   @override
@@ -94,61 +164,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.asset('assets/images/logo.png', height: size.height * 0.10),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: size.height * 0.10,
+                ),
                 CustomFormInput(
                   controller: _nameCtl,
                   hintText: 'Full Name',
                   validator: _validateName,
                 ),
-            
+
                 const SizedBox(height: 10),
-            
+
                 Text('Enter your name and surname to continue'),
-            
+
                 const SizedBox(height: 10),
-            
+
                 CustomFormInput(
                   controller: _emailCtl,
                   hintText: 'Enter your email',
                   validator: _validateEmail,
                 ),
-            
+
                 const SizedBox(height: 10),
-            
+
                 Text('Enter your email'),
-            
+
                 const SizedBox(height: 10),
-            
+
                 CustomFormInput(
                   controller: _dobCtl,
                   hintText: 'Date of birth (DD/MM/YYYY)',
                   validator: _validateDOB,
                 ),
-            
+
                 const SizedBox(height: 10),
-            
+
                 Text('To sign up, you must be at least 18 years old'),
-            
+
                 const SizedBox(height: 10),
-            
+
                 CustomFormInput(
                   controller: _passCtl,
                   hintText: 'Password',
                   obscureText: true,
                   validator: _validatePassword,
                 ),
-            
+
                 const SizedBox(height: 20),
-            
+
                 CustomFormInput(
                   controller: _confirmPassCtl,
                   hintText: 'Confirm Password',
                   obscureText: true,
                   validator: _validateConfirmPassword,
                 ),
-            
+
                 const SizedBox(height: 10),
-            
+
                 Text.rich(
                   TextSpan(
                     text: 'By selecting "Sign Up", you agree to our ',
@@ -176,11 +249,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-            
+
                 const SizedBox(height: 20),
-            
+
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: loading ? null : _submit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -188,14 +261,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child:
+                      loading
+                          ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                          : const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white),
+                          ),
                 ),
-            
+
                 const SizedBox(height: 8),
-            
+
                 TextButton(
                   onPressed: () {
                     Navigator.push(
