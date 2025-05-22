@@ -43,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text('Sign In')),
       body: Padding(
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Image.asset(
                 'assets/images/logo.png',
-                height: 200,
+                height: size.height * 0.20,
               ),
               CustomFormInput(
                 controller: _emailCtl,
