@@ -132,71 +132,73 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.all(20),
         child: Form(
           key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Image.asset('assets/images/logo.png', height: size.height * 0.20),
-              CustomFormInput(
-                controller: _emailCtl,
-                hintText: 'Enter your email',
-                validator: _validateEmail,
-              ),
-
-              const SizedBox(height: 16),
-
-              CustomFormInput(
-                controller: _passCtl,
-                hintText: 'Enter your email',
-                validator: _validatePassword,
-                obscureText: true,
-              ),
-
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('Forgot Password?'),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.asset('assets/images/logo.png', height: size.height * 0.20),
+                CustomFormInput(
+                  controller: _emailCtl,
+                  hintText: 'Enter your email',
+                  validator: _validateEmail,
                 ),
-              ),
-
-              ElevatedButton(
-                onPressed: loading ? null : _submit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            
+                const SizedBox(height: 16),
+            
+                CustomFormInput(
+                  controller: _passCtl,
+                  hintText: 'Enter your email',
+                  validator: _validatePassword,
+                  obscureText: true,
+                ),
+            
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text('Forgot Password?'),
                   ),
                 ),
-                child:
-                    loading
-                        ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
+            
+                ElevatedButton(
+                  onPressed: loading ? null : _submit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child:
+                      loading
+                          ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                          : const Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.white),
                           ),
-                        )
-                        : const Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.white),
-                        ),
-              ),
-
-              const SizedBox(height: 8),
-
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUpScreen()),
-                  );
-                },
-                child: Text('Don\'t have an account? Sign Up'),
-              ),
-            ],
+                ),
+            
+                const SizedBox(height: 8),
+            
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },
+                  child: Text('Don\'t have an account? Sign Up'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
