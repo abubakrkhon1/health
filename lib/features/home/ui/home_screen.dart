@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health/theme/app_colors.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     TextToButton(
                       title: 'Test section',
                       buttonData: ButtonData(
-                        text: 'Test button',
+                        text: 'Test',
                         icon: Icons.arrow_downward,
                       ),
                     ),
@@ -188,7 +189,7 @@ class MetricCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Text(
+              AutoSizeText(
                 value,
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
               ),
