@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:health/theme/app_colors.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,6 +7,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.green),
+              child: Text('Menu', style: TextStyle(color: Colors.white)),
+            ),
+            ListTile(title: Text('Home'), onTap: () {}),
+            ListTile(title: Text('Profile'), onTap: () {}),
+          ],
+        ),
+      ),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -24,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                       title: 'Health Metrics',
                       buttonData: ButtonData(
                         text: 'Today',
-                        icon: Icons.arrow_downward,
+                        icon: Icons.keyboard_arrow_down,
                       ),
                     ),
                     SizedBox(height: 16),
@@ -34,31 +46,31 @@ class HomeScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
-                      childAspectRatio: 1.5,
+                      childAspectRatio: 1.1, // Adjust card proportions
                       children: const [
                         MetricCard(
                           title: 'Pulse',
                           value: '80',
                           metric: 'BPM',
-                          icon: Icons.arrow_back,
+                          icon: Icons.keyboard_arrow_left,
                         ),
                         MetricCard(
                           title: 'Activities',
                           value: '1.2k',
                           metric: 'steps',
-                          icon: Icons.arrow_back,
+                          icon: Icons.keyboard_arrow_left,
                         ),
                         MetricCard(
                           title: 'Water',
                           value: '0.8',
                           metric: 'liters',
-                          icon: Icons.arrow_back,
+                          icon: Icons.keyboard_arrow_left,
                         ),
                         MetricCard(
                           title: 'Calories',
                           value: '35',
                           metric: 'kcal',
-                          icon: Icons.arrow_back,
+                          icon: Icons.keyboard_arrow_left,
                         ),
                       ],
                     ),
@@ -67,14 +79,17 @@ class HomeScreen extends StatelessWidget {
                       title: 'Test section',
                       buttonData: ButtonData(
                         text: 'Test',
-                        icon: Icons.arrow_downward,
+                        icon: Icons.keyboard_arrow_down,
                       ),
                     ),
                     SizedBox(height: 15),
                     Container(
                       width: 450,
                       height: 450,
-                      decoration: BoxDecoration(color: AppColors.textSecondary),
+                      decoration: BoxDecoration(
+                        color: AppColors.textSecondary,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
                       child: Center(child: CircularProgressIndicator()),
                     ),
                   ],
@@ -111,18 +126,22 @@ class TextToButton extends StatelessWidget {
           onPressed: () {},
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            minimumSize: Size.zero, // remove default size constraint
-            tapTargetSize:
-                MaterialTapTargetSize.shrinkWrap, // reduce touch padding
-            side: const BorderSide(color: Colors.grey),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            side: const BorderSide(color: Colors.grey, width: 1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(buttonData.text, style: TextStyle(color: Colors.black)),
-              Icon(buttonData.icon, color: Colors.black),
+              Text(
+                buttonData.text,
+                style: TextStyle(color: Colors.black, fontSize: 14),
+              ),
+              SizedBox(width: 4),
+              Icon(buttonData.icon, color: Colors.black, size: 16),
             ],
           ),
         ),
@@ -148,7 +167,7 @@ class Header extends StatelessWidget {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       trailing: GestureDetector(
-        onTap: () => print('clicked'),
+        onTap: () => Scaffold.of(context).openEndDrawer(),
         child: Icon(Icons.menu),
       ),
     );
@@ -170,30 +189,68 @@ class MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black, // Border color
-          width: 0.4, // Border thickness
-        ),
+        color: Colors.white,
+        border: Border.all(color: Colors.grey.shade300, width: 1),
         borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: Offset(0, 1),
+          ),
+        ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Header row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(title, style: TextStyle(fontSize: 18)), Icon(icon)],
+            children: [
+              Flexible(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Icon(icon, size: 18, color: Colors.grey),
+            ],
           ),
+          // Value and metric row
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              AutoSizeText(
-                value,
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
+              Flexible(
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
-              Text(metric),
+              const SizedBox(width: 2),
+              Text(
+                metric,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ],
