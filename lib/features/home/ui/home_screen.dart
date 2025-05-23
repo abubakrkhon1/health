@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:health/features/notifications/ui/notifications_page.dart';
 import 'package:health/theme/app_colors.dart';
+import 'dart:io';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -166,10 +168,22 @@ class Header extends StatelessWidget {
         'User',
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      trailing: GestureDetector(
-        onTap: () => Scaffold.of(context).openEndDrawer(),
-        child: Icon(Icons.menu),
-      ),
+      trailing:
+          Platform.isAndroid
+              ? GestureDetector(
+                onTap: () => Scaffold.of(context).openEndDrawer(),
+                child: Icon(Icons.menu),
+              )
+              : GestureDetector(
+                onTap:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationsPage(),
+                      ),
+                    ),
+                child: Icon(Icons.notifications),
+              ),
     );
   }
 }
