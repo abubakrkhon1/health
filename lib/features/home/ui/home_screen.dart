@@ -9,19 +9,25 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.green),
-              child: Text('Menu', style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(title: Text('Home'), onTap: () {}),
-            ListTile(title: Text('Profile'), onTap: () {}),
-          ],
-        ),
-      ),
+      endDrawer:
+          Platform.isAndroid
+              ? Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.green),
+                      child: Text(
+                        'Menu',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ListTile(title: Text('Home'), onTap: () {}),
+                    ListTile(title: Text('Profile'), onTap: () {}),
+                  ],
+                ),
+              )
+              : null,
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -182,7 +188,7 @@ class Header extends StatelessWidget {
                         builder: (context) => NotificationsPage(),
                       ),
                     ),
-                child: Icon(Icons.notifications),
+                child: Icon(Icons.notifications_outlined),
               ),
     );
   }
