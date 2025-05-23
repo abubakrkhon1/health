@@ -1,8 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:health/components/CustomFormInput.dart';
-import 'package:health/screens/home_screen.dart';
-import 'package:health/screens/login_screen.dart';
+import 'package:health/features/auth/ui/login_screen.dart';
+import 'package:health/features/main_nav/ui/main_nav_page.dart';
+import 'package:health/theme/app_colors.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -98,54 +99,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
       builder:
-          (context) => Padding(
-            padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.verified, // or use a custom image/icon
-                  color: Colors.green,
-                  size: 64,
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Verification code sent!',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Enter verification code sent to your email to continue',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
-                ),
-                TextField(),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Close modal
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                        (route) => false,
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+          (context) => SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom:
+                    MediaQuery.of(
+                      context,
+                    ).viewInsets.bottom, // 👈 adjusts for keyboard
+                left: 20,
+                right: 20,
+                top: 40,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.verified, // or use a custom image/icon
+                      color: Colors.green,
+                      size: 64,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Verification code sent!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    child: const Text(
-                      'Enter Code',
-                      style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Enter verification code sent to your email to continue',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),
-                  ),
+                    TextField(),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close modal
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainNavigationPage(),
+                            ),
+                            (route) => false,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'Enter Code',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
     );
@@ -153,10 +171,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(title: Text('Sign Up')),
       body: Padding(
         padding: EdgeInsets.all(20),
@@ -170,6 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   'assets/images/logo.png',
                   height: size.height * 0.10,
                 ),
+                SizedBox(height: 20,),
                 CustomFormInput(
                   controller: _nameCtl,
                   hintText: 'Full Name',

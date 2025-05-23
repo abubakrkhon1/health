@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health/screens/login_screen.dart';
-import 'package:health/screens/signup_screen.dart';
+import 'package:health/features/auth/ui/login_screen.dart';
+import 'package:health/features/auth/ui/signup_screen.dart';
+import 'package:health/theme/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -36,6 +37,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final lastIndex = _pages.length - 1;
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -52,7 +54,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(p["image"]!, width: 300, height: 300),
+                        Image.asset(
+                          p["image"]!,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                        ),
                         const SizedBox(height: 20),
                         Text(
                           p["title"]!,
@@ -168,7 +173,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               onPressed: () {
                                 // Navigate to sign-up
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignUpScreen(),
+                                  ),
+                                );
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
@@ -194,7 +204,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               onPressed: () {
                                 // Navigate to login
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                );
                               },
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
