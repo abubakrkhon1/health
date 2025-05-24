@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:health/features/appointments/ui/appointments_page.dart';
+import 'package:health/features/appointments/ui/new_appointment_page.dart';
 import 'package:health/features/home/ui/home_screen.dart';
 import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
@@ -23,6 +24,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   final _pages = const [
     HomeScreen(),
     MedicationPage(),
+    NewAppointmentPage(),
     AppointmentsPage(),
     ProfilePage(),
   ];
