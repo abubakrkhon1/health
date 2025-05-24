@@ -41,14 +41,71 @@ class PlatformMainNavigation extends StatelessWidget {
 
     return Scaffold(
       body: pages[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
-        backgroundColor: backgroundColor,
-        selectedItemColor: selectedItemColor,
-        unselectedItemColor: unselectedItemColor,
-        type: BottomNavigationBarType.fixed,
-        items: items,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Define what "+" does here
+        },
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add, color: Colors.white, size: 30),
+        elevation: 4,
+        shape: CircleBorder(),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 6.0,
+        color: backgroundColor,
+        elevation: 10,
+        child: SizedBox(
+          height: 64,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavIcon(
+                0,
+                items[0].icon,
+                selectedItemColor,
+                unselectedItemColor,
+              ),
+              _buildNavIcon(
+                1,
+                items[1].icon,
+                selectedItemColor,
+                unselectedItemColor,
+              ),
+              const SizedBox(width: 48), // Space for the FAB
+              _buildNavIcon(
+                2,
+                items[2].icon,
+                selectedItemColor,
+                unselectedItemColor,
+              ),
+              _buildNavIcon(
+                3,
+                items[3].icon,
+                selectedItemColor,
+                unselectedItemColor,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavIcon(
+    int index,
+    Widget icon,
+    Color selectedColor,
+    Color unselectedColor,
+  ) {
+    return IconButton(
+      onPressed: () => onTap(index),
+      icon: IconTheme(
+        data: IconThemeData(
+          color: currentIndex == index ? selectedColor : unselectedColor,
+        ),
+        child: icon,
       ),
     );
   }

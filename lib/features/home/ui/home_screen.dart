@@ -3,8 +3,11 @@ import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:lucide_icons/lucide_icons.dart';
+
 import 'package:health/features/clinic/ui/clinic_page.dart';
 import 'package:health/features/notifications/ui/notifications_page.dart';
+import 'package:health/features/profile/ui/profile_page.dart';
 import 'package:health/shared/widgets/platform_page_searchcontainer.dart';
 import 'package:health/theme/app_colors.dart';
 
@@ -15,35 +18,36 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.zero,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header(context),
-            SizedBox(height: 20),
-            Text(
-              'Search for clinics',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Quick Services',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                ],
               ),
             ),
-            SizedBox(height: 16),
-            SearchContainer(
-              placeholder: 'Search clinics',
-              onChanged: (value) => print('User searched: $value'),
-            ),
-            SizedBox(height: 20),
-            _buildClinicCards(context),
-            SizedBox(height: 32),
           ],
         ),
       ),
     );
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(child: content)
+        ? CupertinoPageScaffold(backgroundColor: Colors.white, child: content)
         : Scaffold(
           backgroundColor: AppColors.background,
           endDrawer: _appDrawer(context),
@@ -144,62 +148,106 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _header(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topRight,
+          colors: [Colors.white, Color.fromARGB(255, 129, 230, 255)],
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
         children: [
-          CircleAvatar(
-            radius: 32,
-            backgroundImage: AssetImage('assets/images/user.png'),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello,',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontSize: 16,
-                    color: CupertinoColors.systemGrey,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  'User',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Builder(
-            builder: (BuildContext scaffoldContext) {
-              return GestureDetector(
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
                 onTap: () {
-                  if (Platform.isIOS) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationsPage(),
-                      ),
-                    );
-                  } else {
-                    // Use scaffoldContext instead of context
-                    Scaffold.of(scaffoldContext).openEndDrawer();
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
                 },
-                child: Icon(
-                  Platform.isIOS ? CupertinoIcons.bell : Icons.menu,
-                  color: CupertinoColors.systemGrey,
-                  size: 28,
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: AssetImage('assets/images/user.png'),
                 ),
-              );
-            },
+              ),
+              IconButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Platform.isIOS ? CupertinoColors.systemGrey6 : Colors.white,
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationsPage(),
+                    ),
+                  );
+                },
+                icon: Icon(LucideIcons.bell),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Welcome!',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: Colors.black,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    'User',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: Colors.black,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    'Have a nice day!',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(LucideIcons.siren, color: Colors.white),
+                    label: Text(
+                      'Urgent care',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 14,
+                      ),
+                      shape: StadiumBorder(),
+                    ),
+                  ),
+                ],
+              ),
+              Image.asset('assets/images/doctor.png'),
+            ],
           ),
         ],
       ),
