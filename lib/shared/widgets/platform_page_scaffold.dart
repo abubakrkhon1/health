@@ -8,7 +8,12 @@ class PlatformScaffold extends StatelessWidget {
   final Widget body;
   final Widget? floatingActionButton;
 
-  const PlatformScaffold({this.title, required this.body, this.floatingActionButton, super.key});
+  const PlatformScaffold({
+    this.title,
+    required this.body,
+    this.floatingActionButton,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class PlatformScaffold extends StatelessWidget {
           backgroundColor: AppColors.background,
           navigationBar:
               showAppBar ? CupertinoNavigationBar(middle: Text(title!)) : null,
-          child: SafeArea(child: body),
+          child: body,
         )
         : Scaffold(
           backgroundColor: AppColors.background,

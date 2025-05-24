@@ -20,24 +20,24 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _header(context),
-           SizedBox(height: 20),
-           Text(
+            SizedBox(height: 20),
+            Text(
               'Search for clinics',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
-           SizedBox(height: 16),
+            SizedBox(height: 16),
             SearchContainer(
               placeholder: 'Search clinics',
               onChanged: (value) => print('User searched: $value'),
             ),
-           SizedBox(height: 16),
+            SizedBox(height: 16),
             _buildClinicCards(context),
-           SizedBox(height: 26),
-           Text(
+            SizedBox(height: 26),
+            Text(
               'Search for clinics',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
-           SizedBox(height: 15),
+            SizedBox(height: 15),
             Container(
               width: double.infinity,
               height: 400,
@@ -78,29 +78,72 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildClinicCards(BuildContext context) {
-    final card = GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => ClinicPage(clinic: {'name': 'OftobMedline'}),
-          ),
-        );
-      },
-      child: Card(
-        child: ListTile(
-          tileColor: Colors.white,
-          shape: RoundedRectangleBorder(
+    Widget _clinicTile() {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => ClinicPage(clinic: {'name': 'OftobMedline'}),
+            ),
+          );
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 12),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: Platform.isIOS ? CupertinoColors.systemGrey6 : Colors.white,
             borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: CupertinoColors.separator, width: 0.6),
           ),
-          title: Text('OFTOB MEDLINE'),
-          subtitle: Text('87P4+W46, Tashkent, Uzbekistan'),
-          trailing: Icon(Icons.keyboard_arrow_right),
+          child: Row(
+            children: [
+              Icon(
+                Platform.isIOS ? CupertinoIcons.location : Icons.location_on,
+                color:
+                    Platform.isIOS
+                        ? CupertinoColors.activeBlue
+                        : Theme.of(context).primaryColor,
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'OFTOB MEDLINE',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      '87P4+W46, Tashkent, Uzbekistan',
+                      style: TextStyle(
+                        color: CupertinoColors.inactiveGray,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Platform.isIOS
+                    ? CupertinoIcons.chevron_forward
+                    : Icons.keyboard_arrow_right,
+                color: Colors.grey,
+                size: 20,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-    return Column(children: [card, card, card]);
+      );
+    }
+
+    return Column(children: [_clinicTile(), _clinicTile(), _clinicTile()]);
   }
 
   Widget _header(BuildContext context) {
