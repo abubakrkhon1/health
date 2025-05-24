@@ -147,33 +147,57 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _header(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.only(top: 20, left: 15, right: 15),
-      leading: CircleAvatar(
-        radius: 32,
-        backgroundImage: AssetImage('assets/images/user.png'),
+    return Padding(
+      padding: EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 32,
+            backgroundImage: AssetImage('assets/images/user.png'),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Hello,',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: CupertinoColors.systemGrey,
+                  ),
+                ),
+                Text(
+                  'User',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.label,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (Platform.isIOS) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                );
+              } else {
+                Scaffold.of(context).openEndDrawer();
+              }
+            },
+            child: Icon(
+              Platform.isIOS ? CupertinoIcons.bell : Icons.menu,
+              color: CupertinoColors.systemGrey,
+              size: 28,
+            ),
+          ),
+        ],
       ),
-      title: Text('Hello,'),
-      subtitle: Text(
-        'User',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      trailing:
-          Platform.isAndroid
-              ? GestureDetector(
-                onTap: () => Scaffold.of(context).openEndDrawer(),
-                child: Icon(Icons.menu),
-              )
-              : GestureDetector(
-                onTap:
-                    () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationsPage(),
-                      ),
-                    ),
-                child: Icon(Icons.notifications_outlined),
-              ),
     );
   }
 }
