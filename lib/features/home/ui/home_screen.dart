@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.red.shade700,
+                color: Colors.black,
               ),
             ),
             SizedBox(height: 16),
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
     );
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(child: content)
+        ? CupertinoPageScaffold(child: content,)
         : Scaffold(
           backgroundColor: AppColors.background,
           endDrawer: _appDrawer(context),
