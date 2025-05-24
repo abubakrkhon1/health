@@ -71,7 +71,12 @@ class AppointmentsPage extends StatelessWidget {
               children: [
                 Text(
                   'Upcoming Appointments',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
                 SizedBox(height: 16),
                 ...appointmentsList.map((appointment) {
@@ -84,7 +89,12 @@ class AppointmentsPage extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Past Appointments',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
                 SizedBox(height: 16),
                 ...pastAppointmentsList.map((appointment) {
@@ -103,12 +113,10 @@ class AppointmentsPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 138, 206, 156),
         elevation: 4,
         onPressed: () {},
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            '+',
-            style: TextStyle(fontSize: 30, color: AppColors.textPrimary),
-          ),
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: AppColors.textPrimary,
         ),
       ),
     );
@@ -128,7 +136,7 @@ class Appointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         onTap: () {
           print('$doctor clicked');
@@ -147,16 +155,39 @@ class Appointment extends StatelessWidget {
                 ),
                 child: Icon(Icons.person_outlined, size: 35),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    doctor,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  Text(date),
-                  Text(doctorType, style: TextStyle(color: Color(0xFF4C9A61))),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      doctor,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      date,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      doctorType,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF4C9A61),
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

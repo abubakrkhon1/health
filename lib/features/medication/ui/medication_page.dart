@@ -164,13 +164,11 @@ class Supplement extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(fontSize: 20),
-                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 4),
                   Text(
                     subtitle,
                     style: TextStyle(color: Color(0xFF4C9A61)),
-                    overflow: TextOverflow.visible,
                     softWrap: true,
                   ),
                 ],
