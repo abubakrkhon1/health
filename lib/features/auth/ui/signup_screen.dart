@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 16),
                     const Text(
                       'Verification code sent!',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text(
                       'Enter verification code sent to your email to continue',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14, color: Colors.black54),
                     ),
                     TextField(),
                     const SizedBox(height: 24),
@@ -157,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         child: const Text(
                           'Enter Code',
-                          style: TextStyle(color: Colors.white),
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
                         ),
                       ),
                     ),
@@ -246,11 +246,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text.rich(
                   TextSpan(
                     text: 'By selecting "Sign Up", you agree to our ',
-                    style: const TextStyle(color: Colors.black87),
+                    style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black87),
                     children: [
                       TextSpan(
                         text: 'Terms of Service',
-                        style: const TextStyle(color: Colors.green),
+                        style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -260,7 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const TextSpan(text: ' and '),
                       TextSpan(
                         text: 'Privacy Policy',
-                        style: const TextStyle(color: Colors.green),
+                        style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -294,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           )
                           : const Text(
                             'Sign Up',
-                            style: TextStyle(color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
                           ),
                 ),
 

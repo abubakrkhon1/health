@@ -80,12 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const Icon(Icons.verified, color: Colors.green, size: 64),
               const SizedBox(height: 16),
-              const Text('Verification code sent!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              const Text('Verification code sent!', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 20)),
               const SizedBox(height: 8),
               const Text(
                 'Enter verification code sent to your email to continue',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Colors.black54),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14, color: Colors.black54),
               ),
               const SizedBox(height: 16),
               const TextField(),
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text('Enter Code', style: TextStyle(color: Colors.white)),
+                  child: const Text('Enter Code', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
                 ),
               ),
             ],
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 20,
                                 child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
                               )
-                            : const Text('Sign In', style: TextStyle(color: Colors.white)),
+                            : const Text('Sign In', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
                       ),
                       const SizedBox(height: 8),
                       TextButton(

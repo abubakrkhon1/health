@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               'Search for clinics',
-              style: TextStyle(
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(color: Colors.green),
-            child: Text('Menu', style: TextStyle(color: Colors.white)),
+            child: Text('Menu', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
           ),
           ListTile(title: Text('Home'), onTap: () {}),
           ListTile(title: Text('Profile'), onTap: () {}),
@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       'OFTOB MEDLINE',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         color: Colors.black,
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       '87P4+W46, Tashkent, Uzbekistan',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: CupertinoColors.inactiveGray,
                         fontSize: 13,
                       ),
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   'Hello,',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 16,
                     color: CupertinoColors.systemGrey,
                     decoration: TextDecoration.none,
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   'User',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: CupertinoColors.label,

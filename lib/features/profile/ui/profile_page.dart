@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 15),
                 Text(
                   'Savannah Cooper, 67',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 15),
                 Padding(
@@ -150,7 +150,7 @@ class CardButton extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontSize: 20,
               color: title == 'Profile' ? Colors.white : Colors.black,
             ),

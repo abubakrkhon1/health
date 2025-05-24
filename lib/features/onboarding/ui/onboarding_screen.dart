@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           p["title"]!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: const Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           p["subtitle"]!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: const Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: 15,
                             color: Colors.grey,
                           ),
@@ -129,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               child: Text(
                                 "Skip",
-                                style: TextStyle(color: Colors.green),
+                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
                               ),
                             ),
                           ),
@@ -154,7 +154,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               child: Text(
                                 "Next",
-                                style: TextStyle(color: Colors.white),
+                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
                               ),
                             ),
                           ),
@@ -184,7 +184,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 padding: EdgeInsets.symmetric(vertical: 14),
                                 child: Text(
                                   "Create Account",
-                                  style: TextStyle(
+                                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                     fontSize: 16,
                                     color: Colors.white,
                                   ),
@@ -215,7 +215,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 padding: EdgeInsets.symmetric(vertical: 14),
                                 child: Text(
                                   "Log In",
-                                  style: TextStyle(
+                                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                     fontSize: 16,
                                     color: Colors.green,
                                   ),

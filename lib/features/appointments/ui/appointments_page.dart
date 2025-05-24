@@ -71,7 +71,7 @@ class AppointmentsPage extends StatelessWidget {
               children: [
                 Text(
                   'Upcoming Appointments',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -89,7 +89,7 @@ class AppointmentsPage extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Past Appointments',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -161,7 +161,7 @@ class Appointment extends StatelessWidget {
                   children: [
                     Text(
                       doctor,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -171,7 +171,7 @@ class Appointment extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       date,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 14,
                         color: Colors.grey[600],
                         decoration: TextDecoration.none,
@@ -180,9 +180,9 @@ class Appointment extends StatelessWidget {
                     SizedBox(height: 2),
                     Text(
                       doctorType,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 14,
-                        color: Color(0xFF4C9A61),
+                        color: Colors.grey[600],
                         decoration: TextDecoration.none,
                       ),
                     ),

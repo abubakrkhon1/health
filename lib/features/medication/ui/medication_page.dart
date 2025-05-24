@@ -37,7 +37,7 @@ class MedicationPage extends StatelessWidget {
               children: [
                 Text(
                   'Medication Tracking',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -54,7 +54,7 @@ class MedicationPage extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Supplement Tracking',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -115,7 +115,7 @@ class Medication extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -126,7 +126,7 @@ class Medication extends StatelessWidget {
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 14,
                       color: Color(0xFF4C9A61),
                       decoration: TextDecoration.none,
@@ -176,7 +176,7 @@ class Supplement extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -186,7 +186,7 @@ class Supplement extends StatelessWidget {
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 14,
                       color: Color(0xFF4C9A61),
                       decoration: TextDecoration.none,
