@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:lucide_icons/lucide_icons.dart';
 
-import 'package:health/features/clinic/ui/clinic_page.dart';
 import 'package:health/features/notifications/ui/notifications_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
-import 'package:health/shared/widgets/platform_page_searchcontainer.dart';
 import 'package:health/theme/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,32 +14,109 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> appointments = [
+      {
+        'date': 'Wed Jun 20',
+        'time': '8:00 - 8:30',
+        'doctor': 'Dr. Nirmala Azalea',
+        'doctorType': 'Orthopedic',
+      },
+      {
+        'date': 'Wed Mar 29',
+        'time': '8:00 - 8:30',
+        'doctor': 'Dr. Aaron Gordon',
+        'doctorType': 'Orthopedic',
+      },
+      {
+        'date': 'Wed Jun 20',
+        'time': '12:30 - 14:30',
+        'doctor': 'Dr. Strange',
+        'doctorType': 'Orthopedic',
+      },
+      {
+        'date': 'Wed Jun 20',
+        'time': '8:00 - 8:30',
+        'doctor': 'Dr. Nirmala Azalea',
+        'doctorType': 'Orthopedic',
+      },
+    ];
+
     final content = SafeArea(
       child: SingleChildScrollView(
         padding: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _header(context),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  Text(
-                    'Quick Services',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                ],
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomRight,
+              colors: [Colors.white, Color.fromARGB(255, 110, 185, 255)],
             ),
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _header(context),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 20.0,
+                        right: 20.0,
+                        top: 20.0,
+                      ),
+                      child: _dividerText(
+                        context: context,
+                        text: 'Quick Services',
+                      ),
+                    ),
+                    _buildQuickServices(context),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _dividerText(
+                            context: context,
+                            text: 'My Appointments',
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ...appointments.map((appointment) {
+                      return _appointmentCard(
+                        context: context,
+                        date: appointment['date']!,
+                        time: appointment['time']!,
+                        doctor: appointment['doctor']!,
+                        doctorType: appointment['doctorType']!,
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -53,6 +128,153 @@ class HomeScreen extends StatelessWidget {
           endDrawer: _appDrawer(context),
           body: content,
         );
+  }
+
+  Widget _appointmentCard({
+    required BuildContext context,
+    required String date,
+    required String time,
+    required String doctor,
+    required String doctorType,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Appointment Info
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Appointment date",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        LucideIcons.calendarClock,
+                        size: 16,
+                        color: Colors.black54,
+                      ),
+                      SizedBox(width: 6),
+                      Text(date, style: TextStyle(fontSize: 14)),
+                      SizedBox(width: 10),
+                      Text("• $time", style: TextStyle(fontSize: 14)),
+                    ],
+                  ),
+                ],
+              ),
+              Spacer(),
+              Icon(Icons.more_vert, size: 20),
+            ],
+          ),
+          SizedBox(height: 16),
+          // Doctor Info
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundImage: AssetImage('assets/images/user.png'),
+              ),
+              SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    doctor,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.circle, size: 10, color: Colors.green),
+                      SizedBox(width: 6),
+                      Text(
+                        doctorType,
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickServices(BuildContext context) {
+    final services = [
+      {'label': 'Consultation', 'asset': 'assets/images/doctor-app.png'},
+      {'label': 'Medicines', 'asset': 'assets/images/medicines.png'},
+      {'label': 'Ambulance', 'asset': 'assets/images/ambulance.png'},
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:
+            services.map((service) {
+              return _quickServiceCard(
+                label: service['label']!,
+                assetPath: service['asset']!,
+              );
+            }).toList(),
+      ),
+    );
+  }
+
+  Widget _quickServiceCard({required String label, required String assetPath}) {
+    return Container(
+      width: 100,
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey.shade100,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Image.asset(assetPath, fit: BoxFit.contain),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            label,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _appDrawer(BuildContext context) {
@@ -76,86 +298,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildClinicCards(BuildContext context) {
-    Widget _clinicTile() {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder:
-                  (context) => ClinicPage(clinic: {'name': 'OftobMedline'}),
-            ),
-          );
-        },
-        child: Container(
-          margin: EdgeInsets.only(bottom: 12),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            color: Platform.isIOS ? CupertinoColors.systemGrey6 : Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: CupertinoColors.separator, width: 0.6),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Platform.isIOS ? CupertinoIcons.location : Icons.location_on,
-                color: AppColors.primary,
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'OFTOB MEDLINE',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      '87P4+W46, Tashkent, Uzbekistan',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium?.copyWith(
-                        color: CupertinoColors.inactiveGray,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(
-                Platform.isIOS
-                    ? CupertinoIcons.chevron_forward
-                    : Icons.keyboard_arrow_right,
-                color: Colors.grey,
-                size: 20,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return Column(children: [_clinicTile(), _clinicTile(), _clinicTile()]);
-  }
-
   Widget _header(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topRight,
-          colors: [Colors.white, Color.fromARGB(255, 129, 230, 255)],
-        ),
-      ),
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
@@ -185,6 +329,8 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  shadowColor: MaterialStateProperty.all(Colors.black),
+                  elevation: MaterialStateProperty.all(5),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -215,19 +361,19 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'User',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.black,
+                      color: AppColors.primary,
                       fontSize: 26,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    'Have a nice day!',
+                    'Have a nice day',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.grey.shade600,
                     ),
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 22),
                   ElevatedButton.icon(
                     onPressed: () {},
                     icon: Icon(LucideIcons.siren, color: Colors.white),
@@ -253,4 +399,92 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _dividerText({required BuildContext context, required String text}) {
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(height: 8),
+      ],
+    );
+  }
 }
+
+// Widget _buildClinicCards(BuildContext context) {
+//     Widget _clinicTile() {
+//       return GestureDetector(
+//         onTap: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder:
+//                   (context) => ClinicPage(clinic: {'name': 'OftobMedline'}),
+//             ),
+//           );
+//         },
+//         child: Container(
+//           margin: EdgeInsets.only(bottom: 12),
+//           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+//           decoration: BoxDecoration(
+//             color: Platform.isIOS ? CupertinoColors.systemGrey6 : Colors.white,
+//             borderRadius: BorderRadius.circular(15),
+//             border: Border.all(color: CupertinoColors.separator, width: 0.6),
+//           ),
+//           child: Row(
+//             children: [
+//               Icon(
+//                 Platform.isIOS ? CupertinoIcons.location : Icons.location_on,
+//                 color: AppColors.primary,
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'OFTOB MEDLINE',
+//                       style: Theme.of(
+//                         context,
+//                       ).textTheme.headlineMedium?.copyWith(
+//                         fontWeight: FontWeight.w600,
+//                         fontSize: 16,
+//                         color: Colors.black,
+//                       ),
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                     SizedBox(height: 4),
+//                     Text(
+//                       '87P4+W46, Tashkent, Uzbekistan',
+//                       style: Theme.of(
+//                         context,
+//                       ).textTheme.headlineMedium?.copyWith(
+//                         color: CupertinoColors.inactiveGray,
+//                         fontSize: 13,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Icon(
+//                 Platform.isIOS
+//                     ? CupertinoIcons.chevron_forward
+//                     : Icons.keyboard_arrow_right,
+//                 color: Colors.grey,
+//                 size: 20,
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     }
+
+//     return Column(children: [_clinicTile(), _clinicTile(), _clinicTile()]);
+//   }

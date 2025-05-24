@@ -52,12 +52,12 @@ class PlatformMainNavigation extends StatelessWidget {
         shape: CircleBorder(),
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 6.0,
-        color: backgroundColor,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
         elevation: 10,
+        color: backgroundColor,
         child: SizedBox(
-          height: 64,
+          height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -73,7 +73,7 @@ class PlatformMainNavigation extends StatelessWidget {
                 selectedItemColor,
                 unselectedItemColor,
               ),
-              const SizedBox(width: 48), // Space for the FAB
+              const SizedBox(width: 48), // For FAB spacing
               _buildNavIcon(
                 2,
                 items[2].icon,
@@ -99,13 +99,20 @@ class PlatformMainNavigation extends StatelessWidget {
     Color selectedColor,
     Color unselectedColor,
   ) {
-    return IconButton(
-      onPressed: () => onTap(index),
-      icon: IconTheme(
-        data: IconThemeData(
-          color: currentIndex == index ? selectedColor : unselectedColor,
+    return Expanded(
+      // Makes sure spacing is equal
+      child: InkWell(
+        onTap: () => onTap(index),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0), // Less top padding
+          child: IconTheme(
+            data: IconThemeData(
+              size: 28,
+              color: currentIndex == index ? selectedColor : unselectedColor,
+            ),
+            child: Center(child: icon),
+          ),
         ),
-        child: icon,
       ),
     );
   }

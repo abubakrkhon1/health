@@ -35,24 +35,24 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       currentIndex: _currentIndex,
       pages: _pages,
       onTap: _onTabTapped,
-      backgroundColor: AppColors.bottomNavBackground,
+      backgroundColor: AppColors.background,
       selectedItemColor: AppColors.dark,
       unselectedItemColor: AppColors.primary,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.home,size: 28,),
+          icon: Icon(CupertinoIcons.home,size: 30,),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.medication_outlined,size: 28,),
+          icon: Icon(Icons.medication_outlined,size: 30,),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.calendar,size: 28,),
+          icon: Icon(CupertinoIcons.calendar,size: 30,),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.person,size: 28,),
+          icon: Icon(CupertinoIcons.person,size: 30,),
           label: '',
         ),
       ],
