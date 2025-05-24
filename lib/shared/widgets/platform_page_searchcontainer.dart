@@ -21,6 +21,7 @@ class SearchContainer extends StatelessWidget {
         controller: controller,
         placeholder: placeholder,
         onChanged: onChanged,
+        prefixInsets: EdgeInsets.only(left: 15),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       );
     }
