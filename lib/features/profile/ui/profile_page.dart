@@ -16,9 +16,9 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(top: 25),
+          child: Container(
+            padding: EdgeInsets.only(top: 25),
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
