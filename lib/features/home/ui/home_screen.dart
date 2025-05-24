@@ -154,6 +154,7 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     color: CupertinoColors.systemGrey,
+                    decoration: TextDecoration.none,
                   ),
                 ),
                 Text(

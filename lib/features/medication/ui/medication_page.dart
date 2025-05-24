@@ -37,7 +37,12 @@ class MedicationPage extends StatelessWidget {
               children: [
                 Text(
                   'Medication Tracking',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
                 SizedBox(height: 16),
                 ...medicationsList.map((medication) {
@@ -49,7 +54,12 @@ class MedicationPage extends StatelessWidget {
                 SizedBox(height: 16),
                 Text(
                   'Supplement Tracking',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
                 SizedBox(height: 16),
                 ...supplementList.map((medication) {
@@ -67,13 +77,7 @@ class MedicationPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 138, 206, 156),
         elevation: 4,
         onPressed: () {},
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            '+',
-            style: TextStyle(fontSize: 30, color: AppColors.textPrimary),
-          ),
-        ),
+        child: Icon(Icons.add, size: 30, color: AppColors.textPrimary),
       ),
     );
   }
@@ -87,7 +91,7 @@ class Medication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         onTap: () {
           print('$title clicked');
@@ -111,13 +115,22 @@ class Medication extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(color: Color(0xFF4C9A61)),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4C9A61),
+                      decoration: TextDecoration.none,
+                    ),
                     overflow: TextOverflow.visible,
                     softWrap: true,
                   ),
@@ -139,7 +152,7 @@ class Supplement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         onTap: () {
           print('$title clicked');
@@ -163,12 +176,21 @@ class Supplement extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(color: Color(0xFF4C9A61)),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF4C9A61),
+                      decoration: TextDecoration.none,
+                    ),
                     softWrap: true,
                   ),
                 ],
