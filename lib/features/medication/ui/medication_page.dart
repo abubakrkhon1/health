@@ -69,7 +69,10 @@ class MedicationPage extends StatelessWidget {
         onPressed: () {},
         child: TextButton(
           onPressed: () {},
-          child: Text('+', style: TextStyle(fontSize: 30, color: AppColors.textPrimary)),
+          child: Text(
+            '+',
+            style: TextStyle(fontSize: 30, color: AppColors.textPrimary),
+          ),
         ),
       ),
     );
@@ -87,31 +90,41 @@ class Medication extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          print('$title  clicked');
+          print('$title clicked');
         },
-        child: Container(
-          color: Colors.transparent,
-          child: Row(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.medication, size: 35),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              margin: EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
               ),
-              Column(
+              child: Icon(Icons.medication, size: 35),
+            ),
+            Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TextStyle(fontSize: 20)),
-                  Text(subtitle, style: TextStyle(color: Color(0xFF4C9A61))),
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 20),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: Color(0xFF4C9A61)),
+                    overflow: TextOverflow.visible,
+                    softWrap: true,
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -131,29 +144,39 @@ class Supplement extends StatelessWidget {
         onTap: () {
           print('$title clicked');
         },
-        child: Container(
-          color: Colors.transparent,
-          child: Row(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.medication, size: 35),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              margin: EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
               ),
-              Column(
+              child: Icon(Icons.medication, size: 35),
+            ),
+            Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TextStyle(fontSize: 20)),
-                  Text(subtitle, style: TextStyle(color: Color(0xFF4C9A61))),
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 20),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: Color(0xFF4C9A61)),
+                    overflow: TextOverflow.visible,
+                    softWrap: true,
+                  ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

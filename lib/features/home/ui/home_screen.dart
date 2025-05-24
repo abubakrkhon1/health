@@ -23,30 +23,20 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               'Search for clinics',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.red.shade700,
+              ),
             ),
             SizedBox(height: 16),
             SearchContainer(
               placeholder: 'Search clinics',
               onChanged: (value) => print('User searched: $value'),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildClinicCards(context),
-            SizedBox(height: 26),
-            Text(
-              'Search for clinics',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 15),
-            Container(
-              width: double.infinity,
-              height: 400,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.grey,
-              ),
-              child: Center(child: CircularProgressIndicator.adaptive()),
-            ),
+            SizedBox(height: 32),
           ],
         ),
       ),
@@ -101,10 +91,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Icon(
                 Platform.isIOS ? CupertinoIcons.location : Icons.location_on,
-                color:
-                    Platform.isIOS
-                        ? CupertinoColors.activeBlue
-                        : Theme.of(context).primaryColor,
+                color: AppColors.primary,
               ),
               SizedBox(width: 12),
               Expanded(
@@ -118,6 +105,7 @@ class HomeScreen extends StatelessWidget {
                         fontSize: 16,
                         color: Colors.black,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4),
                     Text(
