@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health/shared/widgets/platform_page_scaffold.dart';
 
 class ClinicPage extends StatelessWidget {
   const ClinicPage({super.key, required this.clinic});
@@ -7,6 +8,9 @@ class ClinicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('${clinic['name']}'),);
+    return PlatformScaffold(
+      title: clinic['name'],
+      body: Center(child: Text(clinic['name'])),
+    );
   }
 }

@@ -182,7 +182,7 @@ class Appointment extends StatelessWidget {
                       doctorType,
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        color: AppColors.primary,
                         decoration: TextDecoration.none,
                       ),
                     ),

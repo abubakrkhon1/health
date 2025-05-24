@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
     );
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(child: content,)
+        ? CupertinoPageScaffold(child: content)
         : Scaffold(
           backgroundColor: AppColors.background,
           endDrawer: _appDrawer(context),
@@ -58,7 +58,12 @@ class HomeScreen extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(color: Colors.green),
-            child: Text('Menu', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
+            child: Text(
+              'Menu',
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(color: Colors.white),
+            ),
           ),
           ListTile(title: Text('Home'), onTap: () {}),
           ListTile(title: Text('Profile'), onTap: () {}),
@@ -100,7 +105,9 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text(
                       'OFTOB MEDLINE',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         color: Colors.black,
@@ -110,7 +117,9 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       '87P4+W46, Tashkent, Uzbekistan',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(
                         color: CupertinoColors.inactiveGray,
                         fontSize: 13,
                       ),
@@ -136,7 +145,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget _header(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 10),
+      padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -162,28 +171,35 @@ class HomeScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: CupertinoColors.label,
+                    color: AppColors.primary,
                   ),
                 ),
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              if (Platform.isIOS) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NotificationsPage()),
-                );
-              } else {
-                Scaffold.of(context).openEndDrawer();
-              }
+          Builder(
+            builder: (BuildContext scaffoldContext) {
+              return GestureDetector(
+                onTap: () {
+                  if (Platform.isIOS) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationsPage(),
+                      ),
+                    );
+                  } else {
+                    // Use scaffoldContext instead of context
+                    Scaffold.of(scaffoldContext).openEndDrawer();
+                  }
+                },
+                child: Icon(
+                  Platform.isIOS ? CupertinoIcons.bell : Icons.menu,
+                  color: CupertinoColors.systemGrey,
+                  size: 28,
+                ),
+              );
             },
-            child: Icon(
-              Platform.isIOS ? CupertinoIcons.bell : Icons.menu,
-              color: CupertinoColors.systemGrey,
-              size: 28,
-            ),
           ),
         ],
       ),

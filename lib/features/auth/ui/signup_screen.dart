@@ -114,27 +114,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.verified, // or use a custom image/icon
                       color: Colors.green,
                       size: 64,
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16),
+                    Text(
                       'Verification code sent!',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    const SizedBox(height: 8),
-                    const Text(
+                    SizedBox(height: 8),
+                    Text(
                       'Enter verification code sent to your email to continue',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14, color: Colors.black54),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(fontSize: 14, color: Colors.black54),
                     ),
                     TextField(),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -150,14 +149,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          padding: EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Enter Code',
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(color: Colors.white),
                         ),
                       ),
                     ),
@@ -188,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   'assets/images/logo.png',
                   height: size.height * 0.10,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 20),
                 CustomFormInput(
                   controller: _nameCtl,
                   hintText: 'Full Name',
@@ -246,11 +246,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text.rich(
                   TextSpan(
                     text: 'By selecting "Sign Up", you agree to our ',
-                    style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black87),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium?.copyWith(color: Colors.black87),
                     children: [
                       TextSpan(
                         text: 'Terms of Service',
-                        style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -260,7 +263,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const TextSpan(text: ' and '),
                       TextSpan(
                         text: 'Privacy Policy',
-                        style: const Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -292,9 +296,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               strokeWidth: 2,
                             ),
                           )
-                          : const Text(
+                          : Text(
                             'Sign Up',
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(color: Colors.white),
                           ),
                 ),
 

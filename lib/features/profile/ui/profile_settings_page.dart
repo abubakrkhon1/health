@@ -7,7 +7,7 @@ class ProfileSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      title: '',
+      title: 'Profile Settings',
       body: Center(
         child: Text('Profile settings Page'),
       ),

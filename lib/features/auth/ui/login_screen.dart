@@ -67,52 +67,72 @@ class _LoginScreenState extends State<LoginScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).padding.bottom,
-          left: 20,
-          right: 20,
-          top: 40,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.verified, color: Colors.green, size: 64),
-              const SizedBox(height: 16),
-              const Text('Verification code sent!', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 20)),
-              const SizedBox(height: 8),
-              const Text(
-                'Enter verification code sent to your email to continue',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14, color: Colors.black54),
-              ),
-              const SizedBox(height: 16),
-              const TextField(),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MainNavigationPage()),
-                      (route) => false,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      builder:
+          (context) => Padding(
+            padding: EdgeInsets.only(
+              bottom:
+                  MediaQuery.of(context).viewInsets.bottom +
+                  MediaQuery.of(context).padding.bottom,
+              left: 20,
+              right: 20,
+              top: 40,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.verified, color: Colors.green, size: 64),
+                  SizedBox(height: 16),
+                  Text(
+                    'Verification code sent!',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
-                  child: const Text('Enter Code', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
-                ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Enter verification code sent to your email to continue',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontSize: 14,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(),
+                  SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainNavigationPage(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        'Enter Code',
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
     );
   }
 
@@ -135,7 +155,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset('assets/images/logo.png', height: size.height * 0.2),
+                      Image.asset(
+                        'assets/images/logo.png',
+                        height: size.height * 0.2,
+                      ),
                       const SizedBox(height: 25),
                       CustomFormInput(
                         controller: _emailCtl,
@@ -161,22 +184,36 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                        child: loading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                              )
-                            : const Text('Sign In', style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white)),
+                        child:
+                            loading
+                                ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                                : Text(
+                                  'Sign In',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(color: Colors.white),
+                                ),
                       ),
                       const SizedBox(height: 8),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpScreen(),
+                            ),
                           );
                         },
                         child: const Text("Don't have an account? Sign Up"),

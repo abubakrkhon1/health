@@ -96,48 +96,51 @@ class Medication extends StatelessWidget {
         onTap: () {
           print('$title clicked');
         },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              margin: EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
+        child: Container(
+          color: Colors.transparent,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                margin: EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.medication, size: 35),
               ),
-              child: Icon(Icons.medication, size: 35),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontSize: 14,
-                      color: Color(0xFF4C9A61),
-                      decoration: TextDecoration.none,
+                    SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 14,
+                        color: Color(0xFF4C9A61),
+                        decoration: TextDecoration.none,
+                      ),
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
                     ),
-                    overflow: TextOverflow.visible,
-                    softWrap: true,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -157,46 +160,49 @@ class Supplement extends StatelessWidget {
         onTap: () {
           print('$title clicked');
         },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              margin: EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
+        child: Container(
+          color: Colors.transparent,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                margin: EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.medication, size: 35),
               ),
-              child: Icon(Icons.medication, size: 35),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      decoration: TextDecoration.none,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontSize: 14,
-                      color: Color(0xFF4C9A61),
-                      decoration: TextDecoration.none,
+                    SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 14,
+                        color: Color(0xFF4C9A61),
+                        decoration: TextDecoration.none,
+                      ),
+                      softWrap: true,
                     ),
-                    softWrap: true,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

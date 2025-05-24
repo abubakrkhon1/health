@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           p["title"]!,
                           textAlign: TextAlign.center,
-                          style: const Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           p["subtitle"]!,
                           textAlign: TextAlign.center,
-                          style: const Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: 15,
                             color: Colors.grey,
                           ),
@@ -122,7 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             },
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 24,
                                 vertical: 12,
@@ -147,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             },
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 24,
                                 vertical: 12,
@@ -180,7 +180,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ),
                                 );
                               },
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
                                 child: Text(
                                   "Create Account",
@@ -211,7 +211,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ),
                                 );
                               },
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 14),
                                 child: Text(
                                   "Log In",
