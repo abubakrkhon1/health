@@ -16,12 +16,20 @@ dependencies:
   flutter_native_splash: ^2.4.6
 
 flutter_native_splash:
-  color: "#FFFFFF"  # Background color
-  image: "assets/images/logo.png"  # Your logo
+  color: "#FFFFFF"
+  image: "assets/images/logo.png"
   android_12:
     image: "assets/images/logo.png"
     icon_background_color: "#FFFFFF"
+  ios: true
+  ios_content_mode: center
+  fullscreen: true
+  android: true
   web: false
+  image_dark: "assets/images/logo.png"
+  color_dark: "#000000" 
+  android_gravity: center
+  android_screen_orientation: portrait
 
 dev_dependencies:
   flutter_test:
