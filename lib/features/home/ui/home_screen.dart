@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                             onPressed: () {},
                             child: Text(
                               'View all',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 color: AppColors.primary,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Appointment date",
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 12, color: Colors.grey),
                   ),
                   SizedBox(height: 8),
                   Row(
@@ -170,9 +170,9 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.black54,
                       ),
                       SizedBox(width: 6),
-                      Text(date, style: TextStyle(fontSize: 14)),
+                      Text(date, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14)),
                       SizedBox(width: 10),
-                      Text("• $time", style: TextStyle(fontSize: 14)),
+                      Text("• $time", style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14)),
                     ],
                   ),
                 ],
@@ -195,7 +195,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     doctor,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Row(
                     children: [
@@ -203,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(width: 6),
                       Text(
                         doctorType,
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.grey, fontSize: 14),
                       ),
                     ],
                   ),
@@ -230,6 +230,7 @@ class HomeScreen extends StatelessWidget {
         children:
             services.map((service) {
               return _quickServiceCard(
+                context: context,
                 label: service['label']!,
                 assetPath: service['asset']!,
               );
@@ -238,7 +239,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _quickServiceCard({required String label, required String assetPath}) {
+  Widget _quickServiceCard({context, required String label, required String assetPath}) {
     return Container(
       width: 100,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -270,7 +271,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 12),
           Text(
             label,
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 10, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -379,7 +380,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icon(LucideIcons.siren, color: Colors.white),
                     label: Text(
                       'Urgent care',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
@@ -406,7 +407,7 @@ class HomeScreen extends StatelessWidget {
         SizedBox(height: 20),
         Text(
           text,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.black,
