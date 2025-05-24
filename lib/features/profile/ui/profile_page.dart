@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:health/features/appointments/ui/appointments_page.dart';
+import 'package:health/features/medication/ui/medication_page.dart';
+import 'package:health/features/profile/ui/insurance_page.dart';
+import 'package:health/features/profile/ui/medical_card_page.dart';
+import 'package:health/features/profile/ui/profile_settings_page.dart';
+import 'package:health/features/profile/ui/settings_page.dart';
 import 'package:health/theme/app_colors.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -26,79 +32,127 @@ class ProfilePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      Card(
-                        color: AppColors.primary,
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.person_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          title: Text(
-                            'Profile',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.person_outlined,
+                        title: 'Profile',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileSettingsPage(),
+                            ),
+                          );
+                        },
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 0,
-                        child: ListTile(
-                          leading: Icon(Icons.medication, size: 30),
-                          title: Text(
-                            'Medications',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.medication,
+                        title: 'Medications',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MedicationPage(title:''),
+                            ),
+                          );
+                        },
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 0,
-                        child: ListTile(
-                          leading: Icon(Icons.calendar_month, size: 30),
-                          title: Text(
-                            'Appointments',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.calendar_month,
+                        title: 'Appointments',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AppointmentsPage(title:''),
+                            ),
+                          );
+                        },
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 0,
-                        child: ListTile(
-                          leading: Icon(Icons.card_membership, size: 30),
-                          title: Text(
-                            'Medical Card',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.card_membership,
+                        title: 'Medical Card',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MedicalCardPage(),
+                            ),
+                          );
+                        },
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 0,
-                        child: ListTile(
-                          leading: Icon(Icons.settings_outlined, size: 30),
-                          title: Text(
-                            'Settings',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.health_and_safety_outlined,
+                        title: 'Insurance',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => InsurancePage(),
+                            ),
+                          );
+                        },
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 0,
-                        child: ListTile(
-                          leading: Icon(Icons.logout, size: 30),
-                          title: Text(
-                            'Logout',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
+                      CardButton(
+                        icon: Icons.settings_outlined,
+                        title: 'Settings',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SettingsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      CardButton(
+                        icon: Icons.logout,
+                        title: 'Logout',
+                        onPressed: () {
+                          print('clicked on logout');
+                        },
                       ),
                     ],
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CardButton extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final VoidCallback onPressed;
+
+  const CardButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Card(
+        elevation: 0,
+        color: title == 'Profile' ? AppColors.primary : Colors.white,
+        child: ListTile(
+          leading: Icon(
+            icon,
+            color: title == 'Profile' ? Colors.white : Colors.black,
+            size: 30,
+          ),
+          title: Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              color: title == 'Profile' ? Colors.white : Colors.black,
             ),
           ),
         ),

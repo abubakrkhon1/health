@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health/shared/widgets/platform_page_scaffold.dart';
 import 'package:health/theme/app_colors.dart';
 
 const medicationsList = [
@@ -19,12 +20,14 @@ const supplementList = [
 ];
 
 class MedicationPage extends StatelessWidget {
-  const MedicationPage({super.key});
+  const MedicationPage({super.key, this.title});
+
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
+    return PlatformScaffold(
+      title: title,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:health/features/appointments/ui/appointments_page.dart';
 import 'package:health/features/home/ui/home_screen.dart';
 import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
+import 'package:health/shared/widgets/platform_page_navigation.dart';
 import 'package:health/theme/app_colors.dart';
 
 class MainNavigationPage extends StatefulWidget {
@@ -23,28 +25,37 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     ProfilePage(),
   ];
 
+  void _onTabTapped(int index) {
+    setState(() => _currentIndex = index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.background,
-        currentIndex: _currentIndex,
-        selectedItemColor: AppColors.dark,
-        unselectedItemColor: AppColors.primary,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.medication_rounded), label: 'Medication'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month_rounded), label: 'Appointments'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+    return PlatformMainNavigation(
+      currentIndex: _currentIndex,
+      pages: _pages,
+      onTap: _onTabTapped,
+      backgroundColor: AppColors.background,
+      selectedItemColor: AppColors.dark,
+      unselectedItemColor: AppColors.primary,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.medication_outlined),
+          label: 'Medication',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.calendar),
+          label: 'Appointments',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
