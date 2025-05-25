@@ -6,6 +6,7 @@ import 'package:health/features/appointments/ui/new_appointment_page.dart';
 import 'package:health/features/home/ui/home_screen.dart';
 import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
+import 'package:health/shared/widgets/padding_wrapper_nav.dart';
 import 'package:health/shared/widgets/platform_page_navigation.dart';
 import 'package:health/theme/app_colors.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -21,11 +22,11 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   int _currentIndex = 0;
 
   final _pages = const [
-    HomeScreen(),
-    MedicationPage(),
-    NewAppointmentPage(),
-    AppointmentsPage(),
-    ProfilePage(),
+    ScreenWithNavPadding(child: HomeScreen()),
+    ScreenWithNavPadding(child: MedicationPage()),
+    ScreenWithNavPadding(child: NewAppointmentPage()),
+    ScreenWithNavPadding(child: AppointmentsPage()),
+    ScreenWithNavPadding(child: ProfilePage()),
   ];
 
   void _onTabTapped(int index) {
@@ -53,7 +54,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
         const BottomNavigationBarItem(
           icon: Icon(LucideIcons.plus, size: 30),
           label: '',
-        ), // iOS "+" tab
+        ),
         const BottomNavigationBarItem(
           icon: Icon(LucideIcons.calendar, size: 30),
           label: '',

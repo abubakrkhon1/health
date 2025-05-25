@@ -77,7 +77,7 @@ class PlatformMainNavigation extends StatelessWidget {
         body: Stack(
           children: [
             IndexedStack(index: currentIndex, children: pages),
-            Align(alignment: Alignment.bottomCenter, child: navBar),
+            Positioned(left: 0, right: 0, bottom: 0, child: navBar),
           ],
         ),
       );
