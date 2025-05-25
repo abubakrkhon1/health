@@ -2,12 +2,12 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health/features/profile/ui/profile_settings_page.dart';
 import 'package:health/shared/widgets/appointment_card.dart';
 
 import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:health/features/notifications/ui/notifications_page.dart';
-import 'package:health/features/profile/ui/profile_page.dart';
 import 'package:health/theme/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -246,7 +246,9 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(
+                      builder: (context) => ProfileSettingsPage(),
+                    ),
                   );
                 },
                 child: CircleAvatar(

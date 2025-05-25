@@ -78,7 +78,9 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           Text(
                             'User Userov',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -87,18 +89,14 @@ class ProfilePage extends StatelessWidget {
                           SizedBox(height: 4),
                           Text(
                             'beby@gmail.com',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(color: Colors.white70, fontSize: 14),
                           ),
                           SizedBox(height: 4),
                           Text(
                             '+123-456-78-90',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(color: Colors.white70, fontSize: 14),
                           ),
                         ],
                       ),
@@ -255,10 +253,18 @@ class SettingItem extends StatelessWidget {
           ),
           child: Icon(icon, size: 22, color: color),
         ),
-        title: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w600)),
+        title: Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+        ),
         subtitle: Text(
           subtitle,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.grey.shade600, fontSize: 13),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.grey.shade600,
+            fontSize: 13,
+          ),
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,
