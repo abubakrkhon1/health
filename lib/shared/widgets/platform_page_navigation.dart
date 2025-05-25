@@ -24,73 +24,77 @@ class PlatformMainNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS) {
-      return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          currentIndex: currentIndex,
-          onTap: onTap,
-          activeColor: selectedItemColor,
-          inactiveColor: unselectedItemColor,
-          backgroundColor: backgroundColor,
-          items: items,
-        ),
-        tabBuilder:
-            (context, index) => CupertinoPageScaffold(child: pages[index]),
-      );
-    }
-
-    return Scaffold(
-      body: pages[currentIndex],
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Define what "+" does here
-        },
-        backgroundColor: Colors.blue,
-        child: Icon(Icons.add, color: Colors.white, size: 30),
-        elevation: 4,
-        shape: CircleBorder(),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
-        elevation: 10,
+    final navBar = Container(
+      decoration: BoxDecoration(
         color: backgroundColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(22),
+          topRight: Radius.circular(22),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
         child: SizedBox(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavIcon(
-                0,
-                items[0].icon,
-                selectedItemColor,
-                unselectedItemColor,
-              ),
-              _buildNavIcon(
-                1,
-                items[1].icon,
-                selectedItemColor,
-                unselectedItemColor,
-              ),
-              const SizedBox(width: 48), // For FAB spacing
-              _buildNavIcon(
-                2,
-                items[2].icon,
-                selectedItemColor,
-                unselectedItemColor,
-              ),
-              _buildNavIcon(
-                3,
-                items[3].icon,
-                selectedItemColor,
-                unselectedItemColor,
-              ),
-            ],
+            children: List.generate(items.length, (index) {
+              if (index == 2) {
+                // Middle + button
+                return GestureDetector(
+                  onTap: () => onTap(index),
+                  child: Container(
+                    width: 55,
+                    height: 55,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.add, color: Colors.white, size: 28),
+                  ),
+                );
+              } else {
+                return _buildNavIcon(
+                  index,
+                  items[index].icon,
+                  selectedItemColor,
+                  unselectedItemColor,
+                );
+              }
+            }),
           ),
         ),
       ),
     );
+
+    return Platform.isIOS
+        ? CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(
+              items: items,
+              currentIndex: currentIndex,
+              onTap: onTap,
+              backgroundColor: Colors.transparent,
+              iconSize: 0, // Hides default
+            ),
+            tabBuilder: (context, index) => CupertinoPageScaffold(
+              child: Stack(
+                children: [
+                  pages[index],
+                  Align(alignment: Alignment.bottomCenter, child: navBar),
+                ],
+              ),
+            ),
+          )
+        : Scaffold(
+            body: pages[currentIndex],
+            bottomNavigationBar: navBar,
+          );
   }
 
   Widget _buildNavIcon(
@@ -99,19 +103,16 @@ class PlatformMainNavigation extends StatelessWidget {
     Color selectedColor,
     Color unselectedColor,
   ) {
-    return Expanded(
-      // Makes sure spacing is equal
-      child: InkWell(
-        onTap: () => onTap(index),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0), // Less top padding
-          child: IconTheme(
-            data: IconThemeData(
-              size: 28,
-              color: currentIndex == index ? selectedColor : unselectedColor,
-            ),
-            child: Center(child: icon),
+    return GestureDetector(
+      onTap: () => onTap(index),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: IconTheme(
+          data: IconThemeData(
+            size: 28,
+            color: currentIndex == index ? selectedColor : unselectedColor,
           ),
+          child: icon,
         ),
       ),
     );

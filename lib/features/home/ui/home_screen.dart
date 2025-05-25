@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health/shared/widgets/appointment_card.dart';
 
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -93,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                             onPressed: () {},
                             child: Text(
                               'View all',
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                              style: Theme.of(
+                                context,
+                              ).textTheme.headlineMedium?.copyWith(
                                 color: AppColors.primary,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -103,15 +106,25 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ...appointments.map((appointment) {
-                      return _appointmentCard(
-                        context: context,
-                        date: appointment['date']!,
-                        time: appointment['time']!,
-                        doctor: appointment['doctor']!,
-                        doctorType: appointment['doctorType']!,
-                      );
-                    }),
+                    SizedBox(height: 6),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        children: [
+                          ...appointments.map((appointment) {
+                            return appointmentCard(
+                              context: context,
+                              appointmentType: 'Upcoming appointment',
+                              date: appointment['date']!,
+                              time: appointment['time']!,
+                              doctor: appointment['doctor']!,
+                              doctorType: appointment['doctorType']!,
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -128,92 +141,6 @@ class HomeScreen extends StatelessWidget {
           endDrawer: _appDrawer(context),
           body: content,
         );
-  }
-
-  Widget _appointmentCard({
-    required BuildContext context,
-    required String date,
-    required String time,
-    required String doctor,
-    required String doctorType,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Appointment Info
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Appointment date",
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 12, color: Colors.grey),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        LucideIcons.calendarClock,
-                        size: 16,
-                        color: Colors.black54,
-                      ),
-                      SizedBox(width: 6),
-                      Text(date, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14)),
-                      SizedBox(width: 10),
-                      Text("• $time", style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14)),
-                    ],
-                  ),
-                ],
-              ),
-              Spacer(),
-              Icon(Icons.more_vert, size: 20),
-            ],
-          ),
-          SizedBox(height: 16),
-          // Doctor Info
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: AssetImage('assets/images/user.png'),
-              ),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    doctor,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.circle, size: 10, color: Colors.green),
-                      SizedBox(width: 6),
-                      Text(
-                        doctorType,
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.grey, fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _buildQuickServices(BuildContext context) {
@@ -239,7 +166,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _quickServiceCard({context, required String label, required String assetPath}) {
+  Widget _quickServiceCard({
+    context,
+    required String label,
+    required String assetPath,
+  }) {
     return Container(
       width: 100,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -271,7 +202,10 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 12),
           Text(
             label,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 10, fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -380,7 +314,9 @@ class HomeScreen extends StatelessWidget {
                     icon: Icon(LucideIcons.siren, color: Colors.white),
                     label: Text(
                       'Urgent care',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,

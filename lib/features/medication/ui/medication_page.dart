@@ -1,207 +1,138 @@
 import 'package:flutter/material.dart';
+import 'package:health/shared/widgets/medicationCard.dart';
 import 'package:health/shared/widgets/platform_page_scaffold.dart';
-import 'package:health/theme/app_colors.dart';
+// import 'package:health/theme/app_colors.dart';
 
 const medicationsList = [
-  {'title': 'Metformin', 'subtitle': 'Take 2 pills every morning'},
-  {'title': 'Lisinopril', 'subtitle': 'Take 1 pill every day'},
-  {'title': 'Atorvastatin', 'subtitle': 'Take 1 pill at bedtime'},
-  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00'},
+  {'title': 'Metformin', 'subtitle': 'Take 2 pills every morning', 'type':'medication'},
+  {'title': 'Lisinopril', 'subtitle': 'Take 1 pill every day', 'type':'medication'},
+  {'title': 'Atorvastatin', 'subtitle': 'Take 1 pill at bedtime', 'type':'medication'},
+  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00', 'type':'medication'},
 ];
 
 const supplementList = [
-  {'title': 'Metformin', 'subtitle': 'Take 2 pills every morning'},
-  {'title': 'Lisinopril', 'subtitle': 'Take 1 pill every day'},
-  {'title': 'Atorvastatin', 'subtitle': 'Take 1 pill at bedtime'},
-  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00'},
-  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00'},
-  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00'},
-  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00'},
+  {'title': 'Metformin', 'subtitle': 'Take 2 pills every morning', 'type':'supplement'},
+  {'title': 'Lisinopril', 'subtitle': 'Take 1 pill every day', 'type':'supplement'},
+  {'title': 'Atorvastatin', 'subtitle': 'Take 1 pill at bedtime', 'type':'supplement'},
+  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00', 'type':'supplement'},
+  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00', 'type':'supplement'},
+  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00', 'type':'supplement'},
+  {'title': 'Aspirin 81mg', 'subtitle': 'Once a day at 08:00', 'type':'supplement'},
 ];
 
-class MedicationPage extends StatelessWidget {
+class MedicationPage extends StatefulWidget {
   const MedicationPage({super.key, this.title});
 
   final String? title;
 
   @override
+  State<MedicationPage> createState() => _MedicationPage();
+}
+
+class _MedicationPage extends State<MedicationPage> {
+  bool showMedications = true;
+
+  @override
   Widget build(BuildContext context) {
+    final currentList = showMedications ? medicationsList : supplementList;
+
     return PlatformScaffold(
-      title: title,
+      title: widget.title,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Schedule title
                 Text(
-                  'Medication Tracking',
+                  'Medications and Supplements',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 16),
-                ...medicationsList.map((medication) {
-                  return Medication(
-                    title: medication['title']!,
-                    subtitle: medication['subtitle']!,
-                  );
-                }),
-                SizedBox(height: 16),
-                Text(
-                  'Supplement Tracking',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
+                const SizedBox(height: 20),
+
+                // Toggle Buttons
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                  padding: const EdgeInsets.all(4),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => showMedications = true),
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color:
+                                  showMedications
+                                      ? Colors.white
+                                      : Colors.transparent,
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            child: Text(
+                              'Medications',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color:
+                                    showMedications ? Colors.black : Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => showMedications = false),
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color:
+                                  !showMedications
+                                      ? Colors.white
+                                      : Colors.transparent,
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            child: Text(
+                              'Supplements',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color:
+                                    !showMedications ? Colors.black : Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 16),
-                ...supplementList.map((medication) {
-                  return Supplement(
+                const SizedBox(height: 20),
+
+                // Appointments List
+                ...currentList.map((medication) {
+                  return MedicationCard(
+                    type: medication['type']!,
                     title: medication['title']!,
-                    subtitle: medication['subtitle']!,
+                    subTitle: medication['subtitle']!
+                    // context: context,
+                    // appointmentType: appointment['appointmentType']!,
+                    // time: appointment['time']!,
+                    // doctor: appointment['doctor']!,
+                    // date: appointment['date']!,
+                    // doctorType: appointment['doctorType']!,
                   );
                 }),
               ],
             ),
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 138, 206, 156),
-        elevation: 4,
-        onPressed: () {},
-        child: Icon(Icons.add, size: 30, color: AppColors.textPrimary),
-      ),
-    );
-  }
-}
-
-class Medication extends StatelessWidget {
-  const Medication({super.key, required this.title, required this.subtitle});
-
-  final String title, subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: GestureDetector(
-        onTap: () {
-          print('$title clicked');
-        },
-        child: Container(
-          color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.medication, size: 35),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontSize: 14,
-                        color: Color(0xFF4C9A61),
-                        decoration: TextDecoration.none,
-                      ),
-                      overflow: TextOverflow.visible,
-                      softWrap: true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Supplement extends StatelessWidget {
-  const Supplement({super.key, required this.title, required this.subtitle});
-
-  final String title, subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: GestureDetector(
-        onTap: () {
-          print('$title clicked');
-        },
-        child: Container(
-          color: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.medication, size: 35),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontSize: 14,
-                        color: Color(0xFF4C9A61),
-                        decoration: TextDecoration.none,
-                      ),
-                      softWrap: true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ),
       ),

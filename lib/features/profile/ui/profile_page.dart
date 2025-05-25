@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:health/features/notifications/ui/notifications_page.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
 import 'package:health/features/appointments/ui/appointments_page.dart';
-import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/insurance_page.dart';
 import 'package:health/features/profile/ui/medical_card_page.dart';
 import 'package:health/features/profile/ui/profile_settings_page.dart';
@@ -13,111 +15,184 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.only(top: 25),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/user.png', width: 150),
-                  SizedBox(height: 15),
-                  Text(
-                    'Savannah Cooper, 67',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 15),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        CardButton(
-                          icon: Icons.person_outlined,
-                          title: 'Profile',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfileSettingsPage(),
-                              ),
-                            );
-                          },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Title
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Profile',
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(fontSize: 26, fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      icon: Icon(LucideIcons.bell),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationsPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Profile Card
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/user.png'),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'User Userov',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        CardButton(
-                          icon: Icons.medication,
-                          title: 'Medications',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MedicationPage(title:''),
-                              ),
-                            );
-                          },
+                        SizedBox(height: 4),
+                        Text(
+                          'beby@gmail.com',
+                          style: TextStyle(color: Colors.white70, fontSize: 14),
                         ),
-                        CardButton(
-                          icon: Icons.calendar_month,
-                          title: 'Appointments',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AppointmentsPage(title:''),
-                              ),
-                            );
-                          },
-                        ),
-                        CardButton(
-                          icon: Icons.card_membership,
-                          title: 'Medical Card',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MedicalCardPage(),
-                              ),
-                            );
-                          },
-                        ),
-                        CardButton(
-                          icon: Icons.health_and_safety_outlined,
-                          title: 'Insurance',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => InsurancePage(),
-                              ),
-                            );
-                          },
-                        ),
-                        CardButton(
-                          icon: Icons.settings_outlined,
-                          title: 'Settings',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SettingsPage(),
-                              ),
-                            );
-                          },
-                        ),
-                        CardButton(
-                          icon: Icons.logout,
-                          title: 'Logout',
-                          onPressed: () {
-                            print('clicked on logout');
-                          },
+                        SizedBox(height: 4),
+                        Text(
+                          '+123-456-78-90',
+                          style: TextStyle(color: Colors.white70, fontSize: 14),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    IconButton(
+                      icon: const Icon(LucideIcons.edit, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ),
-            ),
+
+              const SizedBox(height: 24),
+
+              // General Label
+              Padding(
+                padding: const EdgeInsets.only(left: 24.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'General',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Setting Items
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    SettingItem(
+                      icon: LucideIcons.user,
+                      color: Colors.lightBlue,
+                      title: 'Account Information',
+                      subtitle: 'Change your account information',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ProfileSettingsPage(),
+                            ),
+                          ),
+                    ),
+                    SettingItem(
+                      icon: LucideIcons.heartPulse,
+                      color: Colors.green,
+                      title: 'Insurance Detail',
+                      subtitle: 'Add your insurance info',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => InsurancePage()),
+                          ),
+                    ),
+                    SettingItem(
+                      icon: LucideIcons.fileText,
+                      color: Colors.orange,
+                      title: 'Medical Records',
+                      subtitle: 'History about your medical records',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => MedicalCardPage(),
+                            ),
+                          ),
+                    ),
+                    SettingItem(
+                      icon: LucideIcons.shieldCheck,
+                      color: Colors.purple,
+                      title: 'Clinic Info',
+                      subtitle: 'Information about our Clinic',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AppointmentsPage(title: ''),
+                            ),
+                          ),
+                    ),
+                    SettingItem(
+                      icon: LucideIcons.settings,
+                      color: Colors.blue,
+                      title: 'Settings',
+                      subtitle: 'Manage & Settings',
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => SettingsPage()),
+                          ),
+                    ),
+                    SettingItem(
+                      icon: LucideIcons.logOut,
+                      color: Colors.redAccent,
+                      title: 'Logout',
+                      subtitle: 'Log out from your account',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -125,39 +200,53 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class CardButton extends StatelessWidget {
+class SettingItem extends StatelessWidget {
   final IconData icon;
   final String title;
-  final VoidCallback onPressed;
+  final String subtitle;
+  final VoidCallback onTap;
+  final Color color;
 
-  const CardButton({
+  const SettingItem({
     super.key,
+    required this.color,
     required this.icon,
     required this.title,
-    required this.onPressed,
+    required this.subtitle,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Card(
-        elevation: 0,
-        color: title == 'Profile' ? AppColors.primary : Colors.white,
-        child: ListTile(
-          leading: Icon(
-            icon,
-            color: title == 'Profile' ? Colors.white : Colors.black,
-            size: 30,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 10,
           ),
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontSize: 20,
-              color: title == 'Profile' ? Colors.white : Colors.black,
-            ),
+        ],
+        borderRadius: BorderRadius.circular(15),
+      ),
+      margin: EdgeInsets.only(bottom: 15),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            shape: BoxShape.circle,
           ),
+          child: Icon(icon, size: 22, color: color),
         ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+        ),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: onTap,
       ),
     );
   }
