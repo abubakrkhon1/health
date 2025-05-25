@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:health/features/appointments/ui/appointments_page.dart';
 import 'package:health/features/appointments/ui/new_appointment_page.dart';
 import 'package:health/features/home/ui/home_screen.dart';
-import 'dart:io';
 
 import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
