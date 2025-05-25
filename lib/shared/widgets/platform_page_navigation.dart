@@ -46,7 +46,6 @@ class PlatformMainNavigation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(items.length, (index) {
               if (index == 2) {
-                // Middle + button
                 return GestureDetector(
                   onTap: () => onTap(index),
                   child: Container(
@@ -73,28 +72,18 @@ class PlatformMainNavigation extends StatelessWidget {
       ),
     );
 
-    return Platform.isIOS
-        ? CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
-              items: items,
-              currentIndex: currentIndex,
-              onTap: onTap,
-              backgroundColor: Colors.transparent,
-              iconSize: 0, // Hides default
-            ),
-            tabBuilder: (context, index) => CupertinoPageScaffold(
-              child: Stack(
-                children: [
-                  pages[index],
-                  Align(alignment: Alignment.bottomCenter, child: navBar),
-                ],
-              ),
-            ),
-          )
-        : Scaffold(
-            body: pages[currentIndex],
-            bottomNavigationBar: navBar,
-          );
+    if (Platform.isIOS) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            IndexedStack(index: currentIndex, children: pages),
+            Align(alignment: Alignment.bottomCenter, child: navBar),
+          ],
+        ),
+      );
+    }
+
+    return Scaffold(body: pages[currentIndex], bottomNavigationBar: navBar);
   }
 
   Widget _buildNavIcon(
