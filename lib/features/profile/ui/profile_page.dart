@@ -75,10 +75,10 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'User Userov',
-                            style: TextStyle(
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class ProfilePage extends StatelessWidget {
                           SizedBox(height: 4),
                           Text(
                             'beby@gmail.com',
-                            style: TextStyle(
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.white70,
                               fontSize: 14,
                             ),
@@ -95,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                           SizedBox(height: 4),
                           Text(
                             '+123-456-78-90',
-                            style: TextStyle(
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.white70,
                               fontSize: 14,
                             ),
@@ -121,7 +121,7 @@ class ProfilePage extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'General',
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade700,
@@ -255,10 +255,10 @@ class SettingItem extends StatelessWidget {
           ),
           child: Icon(icon, size: 22, color: color),
         ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+        title: Text(title, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
           subtitle,
-          style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.grey.shade600, fontSize: 13),
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,

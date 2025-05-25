@@ -130,7 +130,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                             ),
                             child: Text(
                               'Upcoming',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color:
                                     showUpcoming ? Colors.black : Colors.grey,
@@ -154,7 +154,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                             ),
                             child: Text(
                               'Past',
-                              style: TextStyle(
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color:
                                     !showUpcoming ? Colors.black : Colors.grey,
