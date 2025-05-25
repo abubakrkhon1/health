@@ -52,8 +52,8 @@ class _MainNavigationPage extends State<MainNavigationPage> {
       ),
       child: SafeArea(
         child: Container(
-          height: 80,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -109,14 +109,14 @@ class _MainNavigationPage extends State<MainNavigationPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             if (isAddButton)
               Container(
-                width: 48,
-                height: 48,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: const Color(0xFF007AFF),
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFF007AFF).withOpacity(0.3),
@@ -128,7 +128,7 @@ class _MainNavigationPage extends State<MainNavigationPage> {
                 child: const Icon(
                   LucideIcons.plus,
                   color: Colors.white,
-                  size: 24,
+                  size: 20,
                 ),
               )
             else
