@@ -8,7 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load();
+  await dotenv.load(fileName: ".env.local");
 
   final apiUrl = dotenv.env['API_URL'];
   final supabaseKey = dotenv.env['SUPABASE_KEY'];
