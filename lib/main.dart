@@ -3,14 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/features/main_nav/ui/main_nav_page.dart';
 import 'package:health/theme/app_colors.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
-    url: 'https://jcqprnnidzphbdoudvxf.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjcXBybm5pZHpwaGJkb3VkdnhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgxNTUyMTQsImV4cCI6MjA2MzczMTIxNH0.uVuhBhBRI-mbd9YEFAGXB82C_92WlJqaxnCXxen32tU',
-  );
+
+  await dotenv.load();
+
+  final apiUrl = dotenv.env['API_URL'];
+  final supabaseKey = dotenv.env['SUPABASE_KEY'];
+
+  await Supabase.initialize(url: apiUrl!, anonKey: supabaseKey!);
 
   runApp(
     ProviderScope(
