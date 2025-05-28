@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:health/features/auth/services/auth_service.dart';
 import 'package:health/features/notifications/ui/notifications_page.dart';
+import 'package:health/features/onboarding/ui/onboarding_screen.dart';
+import 'package:health/shared/widgets/user_provider.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:health/features/appointments/ui/appointments_page.dart';
@@ -9,11 +13,12 @@ import 'package:health/features/profile/ui/profile_settings_page.dart';
 import 'package:health/features/profile/ui/settings_page.dart';
 import 'package:health/theme/app_colors.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider.notifier).state;
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -77,7 +82,7 @@ class ProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'User Userov',
+                            user?.fullName ?? 'User',
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium?.copyWith(
@@ -88,13 +93,13 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'beby@gmail.com',
+                            user?.email ?? 'email@mail.com',
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(color: Colors.white70, fontSize: 14),
                           ),
                           SizedBox(height: 4),
                           Text(
-                            '+123-456-78-90',
+                            user?.phone ?? '+123-456-78-90',
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(color: Colors.white70, fontSize: 14),
                           ),
@@ -200,7 +205,17 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.redAccent,
                       title: 'Logout',
                       subtitle: 'Log out from your account',
-                      onTap: () {},
+                      onTap: () async {
+                        final AuthService authService = AuthService();
+                        await authService.signOut();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      },
                     ),
                   ],
                 ),

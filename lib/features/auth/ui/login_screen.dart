@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/components/CustomFormInput.dart';
+import 'package:health/features/auth/services/auth_service.dart';
 import 'package:health/features/auth/ui/signup_screen.dart';
 import 'package:health/features/main_nav/ui/main_nav_page.dart';
 import 'package:health/theme/app_colors.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailCtl = TextEditingController();
   final _passCtl = TextEditingController();
@@ -50,12 +52,29 @@ class _LoginScreenState extends State<LoginScreen> {
         loading = true;
       });
 
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+        AuthService authService = AuthService();
 
-      showSuccessModal(context);
-      setState(() {
-        loading = false;
-      });
+        await authService.signIn(
+          _emailCtl.value.text,
+          _passCtl.value.text,
+          ref,
+        );
+
+        showSuccessModal(context);
+
+        setState(() {
+          loading = false;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString().replaceAll('Exception: ', ''))),
+        );
+      } finally {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
@@ -200,9 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )
                                 : Text(
                                   'Sign In',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
+                                  style: Theme.of(context).textTheme.titleMedium
                                       ?.copyWith(color: Colors.white),
                                 ),
                       ),

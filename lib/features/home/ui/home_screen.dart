@@ -2,19 +2,22 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/features/profile/ui/profile_settings_page.dart';
 import 'package:health/shared/widgets/appointment_card.dart';
+import 'package:health/shared/widgets/bottom_nav_provider.dart';
+import 'package:health/shared/widgets/user_provider.dart';
 
 import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:health/features/notifications/ui/notifications_page.dart';
 import 'package:health/theme/app_colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List<Map<String, String>> appointments = [
       {
         'date': 'Wed Jun 20',
@@ -56,7 +59,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _header(context),
+              _header(context, ref),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -79,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                         text: 'Quick Services',
                       ),
                     ),
-                    _buildQuickServices(context),
+                    _buildQuickServices(context, ref),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
@@ -143,11 +146,23 @@ class HomeScreen extends StatelessWidget {
         );
   }
 
-  Widget _buildQuickServices(BuildContext context) {
+  Widget _buildQuickServices(BuildContext context, WidgetRef ref) {
     final services = [
-      {'label': 'Consultation', 'asset': 'assets/images/doctor-app.png'},
-      {'label': 'Medicines', 'asset': 'assets/images/medicines.png'},
-      {'label': 'Ambulance', 'asset': 'assets/images/ambulance.png'},
+      {
+        'label': 'Consultation',
+        'asset': 'assets/images/doctor-app.png',
+        'index': 2,
+      },
+      {
+        'label': 'Medicines',
+        'asset': 'assets/images/medicines.png',
+        'index': 1,
+      },
+      {
+        'label': 'Ambulance',
+        'asset': 'assets/images/ambulance.png',
+        'index': 0,
+      },
     ];
 
     return Padding(
@@ -156,10 +171,16 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:
             services.map((service) {
-              return _quickServiceCard(
-                context: context,
-                label: service['label']!,
-                assetPath: service['asset']!,
+              return GestureDetector(
+                onTap: () {
+                  ref.read(bottomNavProvider.notifier).state =
+                      service['index'] as int;
+                },
+                child: _quickServiceCard(
+                  context: context,
+                  label: service['label'] as String,
+                  assetPath: service['asset'] as String,
+                ),
               );
             }).toList(),
       ),
@@ -233,7 +254,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _header(BuildContext context) {
+  Widget _header(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider.notifier).state;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -296,7 +318,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'User',
+                    user?.fullName ?? 'User',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: AppColors.primary,
                       fontSize: 26,

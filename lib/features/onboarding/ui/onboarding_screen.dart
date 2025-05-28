@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health/features/auth/ui/login_screen.dart';
 import 'package:health/features/auth/ui/signup_screen.dart';
+import 'package:health/features/main_nav/ui/main_nav_page.dart';
 import 'package:health/theme/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -116,11 +117,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                             ),
                             onPressed: () {
-                              _controller.animateToPage(
-                                lastIndex,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
+                              // _controller.animateToPage(
+                              //   lastIndex,
+                              //   duration: const Duration(milliseconds: 300),
+                              //   curve: Curves.easeInOut,
+                              // );
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => MainNavigationPage(),));
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -129,7 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               child: Text(
                                 "Skip",
-                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.green),
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.green),
                               ),
                             ),
                           ),
@@ -154,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                               child: Text(
                                 "Next",
-                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
                               ),
                             ),
                           ),

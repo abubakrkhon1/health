@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:health/components/CustomFormInput.dart';
 import 'package:health/features/auth/ui/login_screen.dart';
 import 'package:health/features/main_nav/ui/main_nav_page.dart';
-import 'package:health/theme/app_colors.dart';
+import 'package:health/shared/widgets/platform_page_scaffold.dart';
+import 'package:health/features/auth/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -15,10 +16,12 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final _nameCtl = TextEditingController();
   final _emailCtl = TextEditingController();
-  final _passCtl = TextEditingController();
+  final _nameCtl = TextEditingController();
+  final _numberCtl = TextEditingController();
+  final _genderCtl = TextEditingController();
   final _dobCtl = TextEditingController();
+  final _passCtl = TextEditingController();
   final _confirmPassCtl = TextEditingController();
 
   bool loading = false;
@@ -43,6 +46,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     if (!value.contains('@')) {
       return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? _validateNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your phone number';
+    }
+    return null;
+  }
+
+  String? _validateGender(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your gender';
     }
     return null;
   }
@@ -75,18 +92,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         loading = true;
       });
-      await Future.delayed(const Duration(seconds: 2));
 
-      print('Email: ${_emailCtl.text}');
-      print('Password: ${_passCtl.text}');
-      print('Name: ${_nameCtl.text}');
-      print('DOB: ${_dobCtl.text}');
+      try {
+        AuthService authService = AuthService();
 
-      showSuccessModal(context);
+        await authService.signUp(
+          _emailCtl.value.text,
+          _passCtl.value.text,
+          _nameCtl.value.text,
+          _numberCtl.value.text,
+          _dobCtl.value.text,
+          _genderCtl.value.text,
+        );
 
-      setState(() {
-        loading = false;
-      });
+        showSuccessModal(context);
+
+        setState(() {
+          loading = false;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString().replaceAll('Exception: ', ''))),
+        );
+      } finally {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
@@ -173,9 +205,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(title: Text('Sign Up')),
+    return PlatformScaffold(
+      title: 'Sign Up',
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Form(
@@ -191,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 20),
                 CustomFormInput(
                   controller: _nameCtl,
-                  hintText: 'Full Name',
+                  hintText: 'John Smith',
                   validator: _validateName,
                 ),
 
@@ -203,13 +234,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 CustomFormInput(
                   controller: _emailCtl,
-                  hintText: 'Enter your email',
+                  hintText: 'client@email.com',
                   validator: _validateEmail,
                 ),
 
                 const SizedBox(height: 10),
 
                 Text('Enter your email'),
+
+                const SizedBox(height: 10),
+
+                CustomFormInput(
+                  controller: _numberCtl,
+                  hintText: '+123-456-78-90',
+                  validator: _validateNumber,
+                ),
+
+                const SizedBox(height: 10),
+
+                Text('Enter your phone number'),
 
                 const SizedBox(height: 10),
 
@@ -222,6 +265,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 10),
 
                 Text('To sign up, you must be at least 18 years old'),
+
+                const SizedBox(height: 10),
+
+                CustomFormInput(
+                  controller: _genderCtl,
+                  hintText: 'Male/Female',
+                  validator: _validateGender,
+                ),
+
+                const SizedBox(height: 10),
+
+                Text('Enter your gender'),
 
                 const SizedBox(height: 10),
 
@@ -248,12 +303,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     text: 'By selecting "Sign Up", you agree to our ',
                     style: Theme.of(
                       context,
-                    ).textTheme.headlineMedium?.copyWith(color: Colors.black87),
+                    ).textTheme.titleMedium?.copyWith(color: Colors.black87),
                     children: [
                       TextSpan(
                         text: 'Terms of Service',
-                        style: Theme.of(context).textTheme.headlineMedium
-                            ?.copyWith(color: Colors.green),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -263,8 +319,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const TextSpan(text: ' and '),
                       TextSpan(
                         text: 'Privacy Policy',
-                        style: Theme.of(context).textTheme.headlineMedium
-                            ?.copyWith(color: Colors.green),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(color: Colors.green),
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -298,7 +355,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           )
                           : Text(
                             'Sign Up',
-                            style: Theme.of(context).textTheme.headlineMedium
+                            style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(color: Colors.white),
                           ),
                 ),

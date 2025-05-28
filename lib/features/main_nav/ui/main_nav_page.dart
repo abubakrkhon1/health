@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/features/appointments/ui/appointments_page.dart';
 import 'package:health/features/appointments/ui/new_appointment_page.dart';
+import 'package:health/features/auth/services/auth_gate.dart';
 import 'package:health/features/home/ui/home_screen.dart';
 
 import 'package:health/features/medication/ui/medication_page.dart';
 import 'package:health/features/profile/ui/profile_page.dart';
+import 'package:health/shared/widgets/bottom_nav_provider.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class MainNavigationPage extends StatefulWidget {
+class MainNavigationPage extends ConsumerStatefulWidget {
   const MainNavigationPage({super.key});
 
   @override
-  State<MainNavigationPage> createState() => _MainNavigationPage();
+  ConsumerState<MainNavigationPage> createState() => _MainNavigationPage();
 }
 
-class _MainNavigationPage extends State<MainNavigationPage> {
-  int _currentIndex = 0;
-
+class _MainNavigationPage extends ConsumerState<MainNavigationPage> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const MedicationPage(),
@@ -27,16 +28,23 @@ class _MainNavigationPage extends State<MainNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
+    final _currentIndex =
+        ref
+            .watch(bottomNavProvider.notifier)
+            .state; // Add this line to access the current index
+
+    print(_currentIndex); // Add this line to print the current index
+    return AuthGate(
+      child: Scaffold(
+        body: IndexedStack(index: _currentIndex, children: _pages),
+        bottomNavigationBar: _buildCustomNavBar(),
       ),
-      bottomNavigationBar: _buildCustomNavBar(),
     );
   }
 
   Widget _buildCustomNavBar() {
+    final currentIndex = ref.watch(bottomNavProvider);
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -59,32 +67,32 @@ class _MainNavigationPage extends State<MainNavigationPage> {
                 icon: LucideIcons.home,
                 label: 'Home',
                 index: 0,
-                isSelected: _currentIndex == 0,
+                isSelected: currentIndex == 0,
               ),
               _buildNavItem(
                 icon: LucideIcons.pill,
                 label: 'Medications',
                 index: 1,
-                isSelected: _currentIndex == 1,
+                isSelected: currentIndex == 1,
               ),
               _buildNavItem(
                 icon: null,
                 label: 'Add',
                 index: 2,
-                isSelected: _currentIndex == 2,
+                isSelected: currentIndex == 2,
                 isAddButton: true,
               ),
               _buildNavItem(
                 icon: LucideIcons.calendar,
                 label: 'Appointments',
                 index: 3,
-                isSelected: _currentIndex == 3,
+                isSelected: currentIndex == 3,
               ),
               _buildNavItem(
                 icon: LucideIcons.user,
                 label: 'Profile',
                 index: 4,
-                isSelected: _currentIndex == 4,
+                isSelected: currentIndex == 4,
               ),
             ],
           ),
@@ -101,8 +109,8 @@ class _MainNavigationPage extends State<MainNavigationPage> {
     bool isAddButton = false,
   }) {
     return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
-      child: Container(
+      onTap: () => ref.read(bottomNavProvider.notifier).state = index,
+      child: SizedBox(
         width: 60,
         child: Column(
           mainAxisSize: MainAxisSize.min,
